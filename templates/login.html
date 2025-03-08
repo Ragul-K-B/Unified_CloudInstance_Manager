@@ -1,0 +1,54 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+
+<style>
+    form {
+        font-family: Arial, sans-serif;
+        max-width: 300px;
+        margin: 20px auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+{%endblock%}
+{% block title %}
+LOGIN_PAGE
+{%endblock%}
+{%block content%}
+<h2>LOGIN PAGE</h2>
+    <form action="{{ url_for('auth.login')}}" method="POST">
+
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Submit</button>
+    </form>
+{%endblock%}
