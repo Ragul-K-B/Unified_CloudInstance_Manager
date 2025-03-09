@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">EC2 Instances Dashboard</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Instance ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>State</th>
+                <th>Public IP</th>
+                <th>Private IP</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for instance in instances %}
+            <tr>
+                <td>{{ instance.InstanceId }}</td>
+                <td>{{ instance.Name if instance.Name else 'Unnamed' }}</td>
+                <td>{{ instance.InstanceType }}</td>
+                <td>
+                    <span class="badge bg-{{ 'success' if instance.State == 'running' else 'danger' }}">
+                        {{ instance.State | capitalize }}
+                    </span>
+                </td>
+                <td>{{ instance.PublicIp }}</td>
+                <td>{{ instance.PrivateIp }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item"
+
+                                   href="{{ url_for('main.ec2_toggle_instance', instance_id=instance.InstanceId, action='stop' if instance.State == 'running' else 'start') }}">
+
+                                    {{ 'Stop' if instance.State == 'running' else 'Start' }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('main.ec2_change', instance_id=instance.InstanceId) }}">
+                                    Change Name
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('main.ec2_add_tags', instance_id=instance.InstanceId) }}">
+                                    Add Tags
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('main.ec2_view_tags', instance_id=instance.InstanceId) }}">
+                                    View Tags
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
