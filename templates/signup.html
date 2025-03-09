@@ -1,5 +1,7 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
-<title> sign up</title>
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<title>Sign Up</title>
 <style>
     form {
         font-family: Arial, sans-serif;
@@ -34,23 +36,31 @@
         background-color: #45a049;
     }
 </style>
-{%endblock%}
+{% endblock %}
+
 {% block title %}
 SIGNUP_PAGE
-{%endblock%}
-{%block content%}
+{% endblock %}
+
+{% block content %}
 <h2>SIGNUP PAGE</h2>
-    <form action="{{ url_for('auth.signup') }}" method="POST">
+<form action="{{ url_for('auth.signup') }}" method="POST">
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
 
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required>
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" required>
 
-        <button type="submit">Submit</button>
-    </form>
-{%endblock%}
+    <label for="access">Access Key:</label>
+    <input type="text" id="access" name="access" required>
+
+    <label for="secret">Secret Key:</label>
+    <input type="text" id="secret" name="secret" required>
+
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
