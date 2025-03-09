@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Tags for Instance: {{ instance_id }}</h2>
+
+    {% if tags %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Tag Key</th>
+                <th>Tag Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for tag in tags %}
+            <tr>
+                <td>{{ tag.Key }}</td>
+                <td>{{ tag.Value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No tags found for this instance.</p>
+    {% endif %}
+
+    <a href="{{ url_for('main.aws') }}" class="btn btn-secondary mt-3">Back</a>
+</div>
+{% endblock %}

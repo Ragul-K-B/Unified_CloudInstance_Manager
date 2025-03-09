@@ -1,6 +1,39 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='extended_beauty.css') }}"
-/>
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='extended_beauty.css') }}" />
+<style>
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        gap: 20px;
+    }
+    .button {
+        width: 40%;
+        height: 80vh;
+        background-size: cover;
+        background-position: center;
+        border: none;
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <button class="button" style="background-image: url('{{ url_for('static', filename='aws_image.jpg') }}');" onclick="awsFunction()"></button>
+    <button class="button" style="background-image: url('{{ url_for('static', filename='azure_image.jpg') }}');" onclick="azureFunction()"></button>
+</div>
+
+<script>
+    function awsFunction() {
+        window.location.href = "{{ url_for('main.aws') }}";
+    }
+    function azureFunction() {
+        window.location.href = "{{ url_for('main.azure') }}";
+    }
+</script>
 {% endblock %}
