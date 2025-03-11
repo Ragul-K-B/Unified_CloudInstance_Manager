@@ -5,7 +5,7 @@
 <style>
     form {
         font-family: Arial, sans-serif;
-        max-width: 300px;
+        max-width: 350px;
         margin: 20px auto;
         padding: 20px;
         border: 1px solid #ccc;
@@ -15,6 +15,7 @@
     label {
         display: block;
         margin-bottom: 5px;
+        font-weight: bold;
     }
     input {
         width: 100%;
@@ -34,6 +35,12 @@
     }
     button:hover {
         background-color: #45a049;
+    }
+    .section-title {
+        margin-top: 15px;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #333;
     }
 </style>
 {% endblock %}
@@ -55,11 +62,29 @@ SIGNUP_PAGE
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
 
-    <label for="access">Access Key:</label>
+    <!-- AWS Credentials Section -->
+    <div class="section-title">AWS Credentials</div>
+
+    <label for="access">AWS Access Key:</label>
     <input type="text" id="access" name="access" required>
 
-    <label for="secret">Secret Key:</label>
+    <label for="secret">AWS Secret Key:</label>
     <input type="text" id="secret" name="secret" required>
+
+    <!-- Azure Credentials Section -->
+    <div class="section-title">Azure Credentials</div>
+
+    <label for="client_id">Azure Client ID:</label>
+    <input type="text" id="client_id" name="client_id" required>
+
+    <label for="tenant_id">Azure Tenant ID:</label>
+    <input type="text" id="tenant_id" name="tenant_id" required>
+
+    <label for="client_secret">Azure Client Secret:</label>
+    <input type="text" id="client_secret" name="client_secret" required>
+
+    <label for="subscription_id">Azure Subscription ID:</label>
+    <input type="text" id="subscription_id" name="subscription_id" required>
 
     <button type="submit">Submit</button>
 </form>

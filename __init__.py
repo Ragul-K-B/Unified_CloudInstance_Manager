@@ -22,5 +22,6 @@ def create_app():
 
     from .auth import auth as auth_blueprint
     app.register_blueprint(auth_blueprint)
-
+    from .azure_fun import azure_fun as azure_blueprint
+    app.register_blueprint(azure_blueprint)
     return app

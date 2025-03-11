@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Azure Virtual Machines Dashboard</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>VM Name</th>
+                <th>Resource Group</th>
+                <th>Region</th>
+                <th>Size</th>
+                <th>State</th>
+                <th>Public IP</th>
+                <th>Private IP</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vm in vms %}
+            <tr>
+                <td>{{ vm.name }}</td>
+                <td>{{ vm.resource_group }}</td>
+                <td>{{ vm.region }}</td>
+                <td>{{ vm.size }}</td>
+                <td>
+                    <span class="badge bg-{{ 'success' if vm.state == 'running' else 'danger' }}">
+                        {{ vm.state | capitalize }}
+                    </span>
+                </td>
+                <td>{{ vm.public_ip if vm.public_ip else 'N/A' }}</td>
+                <td>{{ vm.private_ip if vm.private_ip else 'N/A' }}</td>
+                <td>
+                    <div class="btn-group">
+                        <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a class="dropdown-item"
+                                   href="#">
+                                    {{ 'Stop' if vm.state == 'running' else 'Start' }}
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Change Name
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    Add Tags
+                                </a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    View Tags
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

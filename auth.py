@@ -17,6 +17,10 @@ def signup_post():
     password = request.form.get('password')
     access = request.form.get('access')
     secret = request.form.get('secret')
+    client_id=request.form.get('client_id')
+    tenant_id=request.form.get('tenant_id')
+    client_secret=request.form.get('client_secret')
+    subscription_id=request.form.get('subscription_id')
 
     print(f"Signup Attempt: email={email}, name={name}, password={password}")
 
@@ -37,7 +41,11 @@ def signup_post():
             email=email,
             password=generate_password_hash(password, method='pbkdf2:sha256'),
             access=access,
-            secret=secret
+            secret=secret,
+            client_id=client_id,
+            client_secret=client_secret,
+            tenant_id=tenant_id,
+            subscription_id=subscription_id
         )
         db.session.add(new_user)
         db.session.commit()
