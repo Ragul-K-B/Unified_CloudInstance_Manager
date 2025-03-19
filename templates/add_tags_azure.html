@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4">Add Tag to Azure Virtual Machine</h2>
+
+    <form action="{{ url_for('azure_fun.addtags') }}" method="POST">
+        <input type="hidden" name="resource_group" value="{{ resource_group }}">
+        <input type="hidden" name="vm_name" value="{{ vm_name }}">
+
+        <div class="mb-3">
+            <label for="tag_key" class="form-label">Tag Key</label>
+            <input type="text" class="form-control" id="tag_key" name="tag_key" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="tag_value" class="form-label">Tag Value</label>
+            <input type="text" class="form-control" id="tag_value" name="tag_value" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Add Tag</button>
+        <a href="{{ url_for('azure_fun.dashboard') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+{% endblock %}
