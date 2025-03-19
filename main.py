@@ -52,50 +52,48 @@ def aws():
 
     except Exception as e:
         return f"Error fetching EC2 details: {e}", 500
-@main.route('/ec2_change/<instance_id>')
+@main.route('/rename_instance/<instance_id>', methods=['GET', 'POST'])
 @login_required
-def ec2_change(instance_id):
-    """ Render a form to rename an EC2 instance """
+def rename_instance(instance_id):
+    """Handle renaming of an EC2 instance"""
+    if request.method == 'POST':
+        new_name = request.form.get('new_name')
+
+        if not new_name:
+            flash("New name is required!", "danger")
+            return redirect(url_for('main.rename_instance', instance_id=instance_id))
+
+        # ✅ Fetch AWS credentials from the user's profile
+        aws_access_key = current_user.access
+        aws_secret_key = current_user.secret
+        aws_region = "us-east-1"
+
+        try:
+            # ✅ Connect to EC2
+            ec2_client = boto3.client(
+                'ec2',
+                aws_access_key_id=aws_access_key,
+                aws_secret_access_key=aws_secret_key,
+                region_name=aws_region
+            )
+
+            # ✅ Rename the instance by updating its tag
+            ec2_client.create_tags(
+                Resources=[instance_id],
+                Tags=[{"Key": "Name", "Value": new_name}]
+            )
+
+            flash(f"Instance {instance_id} renamed to {new_name}", "success")
+            return redirect(url_for('main.aws'))  # Redirect back to AWS dashboard
+
+        except Exception as e:
+            app.logger.error(f"Error renaming instance {instance_id}: {str(e)}")
+            flash(f"Error renaming instance: {str(e)}", "danger")
+            return redirect(url_for('main.rename_instance', instance_id=instance_id))
+
+    # **Render the rename form for GET requests**
     return render_template('rename_instance.html', instance_id=instance_id)
-
-@main.route('/rename_instance', methods=['POST'])
-@login_required
-def rename_instance():
-    """ Handle renaming of an EC2 instance """
-    instance_id = request.form.get('instance_id')
-    new_name = request.form.get('new_name')
-
-    if not instance_id or not new_name:
-        flash("Instance ID and new name are required!", "danger")
-        return redirect(url_for('main.aws'))
-
-    # ✅ Fetch AWS credentials from the user's profile
-    aws_access_key = current_user.access
-    aws_secret_key = current_user.secret
-    aws_region = "us-east-1"
-
-    try:
-        # ✅ Connect to EC2
-        ec2_client = boto3.client(
-            'ec2',
-            aws_access_key_id=aws_access_key,
-            aws_secret_access_key=aws_secret_key,
-            region_name=aws_region
-        )
-
-        # ✅ Rename the instance by updating its tag
-        ec2_client.create_tags(
-            Resources=[instance_id],
-            Tags=[{"Key": "Name", "Value": new_name}]
-        )
-
-        flash(f"Instance {instance_id} renamed to {new_name}", "success")
-        return redirect(url_for('main.aws'))  # Redirect back to the AWS dashboard
-
-    except Exception as e:
-        flash(f"Error renaming instance: {e}", "danger")
-        return redirect(url_for('main.aws'))
-@main.route('/ec2_add_tags/<instance_id>')
+@main.route('/ec2_add_tags/<instance_id>',methods=['GET'])
 @login_required
 def ec2_add_tags(instance_id):
     """ Render a form to add tags to an EC2 instance """
@@ -168,7 +166,7 @@ def ec2_view_tags(instance_id):
     except Exception as e:
         flash(f"Error fetching tags: {e}", "danger")
         return redirect(url_for('main.aws'))
-@main.route('/ec2/toggle/<instance_id>/<action>')
+@main.route('/ec2/toggle/<instance_id>/<action>',methods=['POST'])
 @login_required
 def ec2_toggle_instance(instance_id, action):
     aws_access_key = current_user.access

@@ -1,21 +1,69 @@
-{% extends "base.html" %} {% block head %} {{ super() }}
-<link
-  rel="stylesheet"
-  href="{{ url_for('static', filename='extended_beauty.css') }}"
-/>
-{% endblock %} {% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Cloud Instance Manager</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: linear-gradient(to right, #007bff, #6610f2);
+            color: white;
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+        }
+        .container {
+            margin-top: 100px;
+        }
+        .btn-custom {
+            width: 200px;
+            margin: 10px;
+            font-size: 1.2rem;
+            padding: 12px;
+            border-radius: 30px;
+        }
+        .cloud-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin-top: 50px;
+        }
+        .cloud-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            width: 40%;
+            text-align: center;
+        }
+        .cloud-card img {
+            max-width: 100px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="display-3 fw-bold">Unified Cloud Instance Manager</h1>
+        <p class="lead">Seamless cloud instance management for AWS and Azure</p>
 
-<h1>Hello!</h1>
-<center>
-  <img
-    src="{{ url_for('static', filename='images/pushup.png') }}"
-    alt="pushup guy"
-    height="200px"
-  />
-</center>
-<p>
-  Welcome to your pushups-logger! <br />This website implements basic CRUD
-  Functionality and user authentication features using Flask.
-</p>
+        <div class="cloud-section">
+            <div class="cloud-card">
+                <img src="{{ url_for('static', filename='aws_image.jpg') }}" alt="AWS Logo">
+                <h3>AWS Cloud Services</h3>
+                <p>Monitor, start, stop, and manage AWS instances effortlessly.</p>
+            </div>
+            <div class="cloud-card">
+                <img src="{{ url_for('static', filename='azure_image.jpg') }}" alt="Azure Logo">
+                <h3>Azure Cloud Services</h3>
+                <p>Optimize and control Azure virtual machines with ease.</p>
+            </div>
+        </div>
 
-{% endblock %}
+        <div class="mt-4">
+            <a href="{{ url_for('auth.login') }}" class="btn btn-light btn-custom">Login</a>
+            <a href="{{ url_for('auth.signup') }}" class="btn btn-warning btn-custom">Sign Up</a>
+        </div>
+    </div>
+</body>
+</html>

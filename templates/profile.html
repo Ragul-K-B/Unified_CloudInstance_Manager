@@ -4,3 +4,26 @@
   href="{{ url_for('static', filename='extended_beauty.css') }}"
 />
 {% endblock %}
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Select Your Cloud Platform</h2>
+
+    <div class="row justify-content-center mt-4">
+        <!-- AWS Button -->
+        <div class="col-md-4">
+            <a href="{{ url_for('main.aws') }}">
+                <img src="{{ url_for('static', filename='aws_image.jpg') }}" alt="AWS" class="img-fluid rounded" style="width: 200px; height: auto;">
+            </a>
+            <h4 class="mt-2">AWS</h4>
+        </div>
+
+        <!-- Azure Button -->
+        <div class="col-md-4">
+            <a href="{{ url_for('azure_fun.dashboard') }}">
+                <img src="{{ url_for('static', filename='azure_image.jpg') }}" alt="Azure" class="img-fluid rounded" style="width: 200px; height: auto;">
+            </a>
+            <h4 class="mt-2">Azure</h4>
+        </div>
+    </div>
+</div>
+{% endblock %}

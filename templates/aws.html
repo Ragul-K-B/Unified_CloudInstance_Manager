@@ -1,8 +1,8 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 <div class="container mt-4">
-    <h2 class="mb-4">EC2 Instances Dashboard</h2>
+    <h2 class="mb-4 text-center">EC2 Instances Dashboard</h2>
     <table class="table table-striped">
         <thead>
             <tr>
@@ -26,22 +26,27 @@
                         {{ instance.State | capitalize }}
                     </span>
                 </td>
-                <td>{{ instance.PublicIp }}</td>
-                <td>{{ instance.PrivateIp }}</td>
+                <td>{{ instance.PublicIp if instance.PublicIp else 'N/A' }}</td>
+                <td>{{ instance.PrivateIp if instance.PrivateIp else 'N/A' }}</td>
                 <td>
                     <div class="btn-group">
                         <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
                         <ul class="dropdown-menu">
+                            {% if instance.State == 'stopped' %}
                             <li>
-                                <a class="dropdown-item"
-
-                                   href="{{ url_for('main.ec2_toggle_instance', instance_id=instance.InstanceId, action='stop' if instance.State == 'running' else 'start') }}">
-
-                                    {{ 'Stop' if instance.State == 'running' else 'Start' }}
-                                </a>
+                                <form action="{{ url_for('main.ec2_toggle_instance', instance_id=instance.InstanceId, action='start') }}" method="post">
+                                    <button class="dropdown-item" type="submit">Start Instance</button>
+                                </form>
                             </li>
+                            {% elif instance.State == 'running' %}
                             <li>
-                                <a class="dropdown-item" href="{{ url_for('main.ec2_change', instance_id=instance.InstanceId) }}">
+                                <form action="{{ url_for('main.ec2_toggle_instance', instance_id=instance.InstanceId, action='stop') }}" method="post">
+                                    <button class="dropdown-item" type="submit">Stop Instance</button>
+                                </form>
+                            </li>
+                            {% endif %}
+                            <li>
+                                <a class="dropdown-item" href="{{ url_for('main.rename_instance', instance_id=instance.InstanceId) }}">
                                     Change Name
                                 </a>
                             </li>
@@ -50,6 +55,7 @@
                                     Add Tags
                                 </a>
                             </li>
+
                             <li>
                                 <a class="dropdown-item" href="{{ url_for('main.ec2_view_tags', instance_id=instance.InstanceId) }}">
                                     View Tags

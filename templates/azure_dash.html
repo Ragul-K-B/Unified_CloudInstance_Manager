@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "base2.html" %}
 
 {% block content %}
 <div class="container mt-4">
@@ -34,24 +34,31 @@
                     <div class="btn-group">
                         <button class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown">Actions</button>
                         <ul class="dropdown-menu">
+                            {% if vm.state == 'stopped' %}
                             <li>
-                                <a class="dropdown-item"
-                                   href="#">
-                                    {{ 'Stop' if vm.state == 'running' else 'Start' }}
-                                </a>
+                                <form action="{{ url_for('azure_fun.start_vm', resource_group=vm.resource_group, vm_name=vm.name) }}" method="post">
+                                    <button class="dropdown-item" type="submit">Start VM</button>
+                                </form>
+                            </li>
+                            {% elif vm.state == 'running' %}
+                            <li>
+                                <form action="{{ url_for('azure_fun.stop_vm', resource_group=vm.resource_group, vm_name=vm.name) }}" method="post">
+                                    <button class="dropdown-item" type="submit">Stop VM</button>
+                                </form>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
-                                    Change Name
-                                </a>
+                                <form action="{{ url_for('azure_fun.restart_vm', resource_group=vm.resource_group, vm_name=vm.name) }}" method="post">
+                                    <button class="dropdown-item" type="submit">Restart VM</button>
+                                </form>
                             </li>
+                            {% endif %}
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ url_for('azure_fun.addtags', resource_group=vm.resource_group, vm_name=vm.name) }}">
                                     Add Tags
                                 </a>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="{{ url_for('azure_fun.viewtags', resource_group=vm.resource_group, vm_name=vm.name) }}">
                                     View Tags
                                 </a>
                             </li>

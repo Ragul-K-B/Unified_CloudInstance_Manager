@@ -1,91 +1,120 @@
-{% extends "base.html" %}
-{% block head %}
-{{ super() }}
-<title>Sign Up</title>
-<style>
-    form {
-        font-family: Arial, sans-serif;
-        max-width: 350px;
-        margin: 20px auto;
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        background-color: #f9f9f9;
-    }
-    label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-    }
-    input {
-        width: 100%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-    }
-    button {
-        width: 100%;
-        padding: 10px;
-        background-color: #4CAF50;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-    }
-    button:hover {
-        background-color: #45a049;
-    }
-    .section-title {
-        margin-top: 15px;
-        font-size: 1.1em;
-        font-weight: bold;
-        color: #333;
-    }
-</style>
-{% endblock %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sign Up</title>
 
-{% block title %}
-SIGNUP_PAGE
-{% endblock %}
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Arvo&display=swap" rel="stylesheet">
 
-{% block content %}
-<h2>SIGNUP PAGE</h2>
-<form action="{{ url_for('auth.signup') }}" method="POST">
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" required>
+    <style>
+        body {
+            background: linear-gradient(to right, #007bff, #6610f2);
+            font-family: 'Arvo', serif;
+            min-height: 100vh; /* Allows scrolling if needed */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto; /* Enables scrolling */
+            padding: 20px;
+        }
+        .signup-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+        h2 {
+            color: #333;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+            color: #333;
+            text-align: left;
+            margin-top: 10px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
+        .section-title {
+            margin-top: 20px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #007bff;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: gold;
+            color: black;
+            font-weight: bold;
+            border: none;
+            border-radius: 6px;
+            margin-top: 15px;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #d4af37;
+        }
+    </style>
+</head>
+<body>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" required>
+    <div class="signup-container">
+        <h2>Sign Up</h2>
+        <form action="{{ url_for('auth.signup') }}" method="POST">
 
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password" required>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
 
-    <!-- AWS Credentials Section -->
-    <div class="section-title">AWS Credentials</div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
 
-    <label for="access">AWS Access Key:</label>
-    <input type="text" id="access" name="access" required>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
 
-    <label for="secret">AWS Secret Key:</label>
-    <input type="text" id="secret" name="secret" required>
+            <!-- AWS Credentials Section -->
+            <div class="section-title">AWS Credentials</div>
 
-    <!-- Azure Credentials Section -->
-    <div class="section-title">Azure Credentials</div>
+            <label for="access">AWS Access Key:</label>
+            <input type="text" id="access" name="access" required>
 
-    <label for="client_id">Azure Client ID:</label>
-    <input type="text" id="client_id" name="client_id" required>
+            <label for="secret">AWS Secret Key:</label>
+            <input type="text" id="secret" name="secret" required>
 
-    <label for="tenant_id">Azure Tenant ID:</label>
-    <input type="text" id="tenant_id" name="tenant_id" required>
+            <!-- Azure Credentials Section -->
+            <div class="section-title">Azure Credentials</div>
 
-    <label for="client_secret">Azure Client Secret:</label>
-    <input type="text" id="client_secret" name="client_secret" required>
+            <label for="client_id">Azure Client ID:</label>
+            <input type="text" id="client_id" name="client_id" required>
 
-    <label for="subscription_id">Azure Subscription ID:</label>
-    <input type="text" id="subscription_id" name="subscription_id" required>
+            <label for="tenant_id">Azure Tenant ID:</label>
+            <input type="text" id="tenant_id" name="tenant_id" required>
 
-    <button type="submit">Submit</button>
-</form>
-{% endblock %}
+            <label for="client_secret">Azure Client Secret:</label>
+            <input type="text" id="client_secret" name="client_secret" required>
+
+            <label for="subscription_id">Azure Subscription ID:</label>
+            <input type="text" id="subscription_id" name="subscription_id" required>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+</html>

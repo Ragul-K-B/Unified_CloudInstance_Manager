@@ -4,7 +4,7 @@
 <div class="container mt-4">
     <h2 class="mb-4">Rename EC2 Instance</h2>
 
-    <form action="{{ url_for('main.rename_instance') }}" method="POST">
+    <form action="{{ url_for('main.rename_instance', instance_id=instance_id) }}" method="POST">
         <input type="hidden" name="instance_id" value="{{ instance_id }}">
 
         <div class="mb-3">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Push-Ups Logger</title>
+    <title>Unified Cloud Instance Manager</title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ url_for('static', filename='images/muscle.ico') }}">
@@ -14,8 +14,29 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='beauty.css') }}">
+    <style>
+        body {
+            background: linear-gradient(to right, #007bff, #6610f2);
+            color: white;
+            font-family: 'Arvo', serif;
+        }
+        .navbar {
+            background: rgba(0, 0, 0, 0.7) !important;
+        }
+        .btn-signup, .btn-login {
+            margin-left: 10px;
+            border-radius: 20px;
+            padding: 10px 20px;
+            color: white;
+            border: none;
+        }
+        .btn-signup {
+            background-color: #ffcc00;
+        }
+        .btn-login {
+            background-color: #28a745;
+        }
+    </style>
 
     {% block head %}{% endblock %}
 </head>
@@ -23,7 +44,7 @@
 
     <!-- Stylish Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="{{ url_for('main.index') }}">🏋️ Push-Ups Logger</a>
+        <a class="navbar-brand" href="{{ url_for('main.index') }}">☁️ Unified Cloud Instance Manager</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -31,10 +52,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a href="{{ url_for('auth.signup') }}" class="btn btn-signup">Signup</a>
+                    <a href="{{ url_for('main.profile') }}" class="btn btn-signup">change</a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ url_for('auth.login') }}" class="btn btn-login">Login</a>
+                    <a href="{{ url_for('auth.logout') }}" class="btn btn-login">Logout</a>
                 </li>
             </ul>
         </div>
