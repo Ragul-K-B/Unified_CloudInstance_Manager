@@ -1,2 +1,2 @@
-set FLASK_ENV=healthcare
+set FLASK_ENV=UCIM
 flask run
